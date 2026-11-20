@@ -22,9 +22,11 @@ from leaguelens.schemas import (
     TradeOut,
     TradeRequest,
     UserLeaguesOut,
+    WaiversOut,
 )
 from leaguelens.services.league import LeagueService, NotFoundError
 from leaguelens.services.valuation import BadRequestError, StatsUnavailableError, ValuationService
+from leaguelens.services.waivers import WaiverService
 
 
 def get_container(request: Request) -> Container:
@@ -127,5 +129,15 @@ def create_app(container: Container | None = None) -> FastAPI:
     @app.post("/api/leagues/{league_id}/trade/analyze", response_model=TradeOut)
     def analyze_trade(league_id: str, req: TradeRequest, svc: ValuationDep) -> TradeOut:
         return svc.analyze_trade(league_id, req)
+
+    @app.get("/api/leagues/{league_id}/waivers", response_model=WaiversOut)
+    def waivers(
+        league_id: str,
+        c: ContainerDep,
+        svc: LeagueDep,
+        position: Annotated[str | None, Query(pattern="^(QB|RB|WR|TE)$")] = None,
+        limit: Annotated[int, Query(ge=1, le=200)] = 50,
+    ) -> WaiversOut:
+        return WaiverService(c.session_factory, svc).radar(league_id, position, limit)
 
     return app

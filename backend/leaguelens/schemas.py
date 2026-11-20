@@ -159,3 +159,31 @@ class TradeOut(BaseModel):
     team_b: TeamImpactOut
     reasons: list[str]
     weeks_remaining: int
+
+
+class UsageWeekOut(BaseModel):
+    week: int
+    usage: float
+    snap_pct: float | None
+    points: float
+
+
+class WaiverPlayerOut(BaseModel):
+    player_id: str
+    name: str
+    position: str
+    team: str | None
+    injury_status: str | None
+    age: int | None
+    score: float
+    usage_slope: float
+    latest_usage: float
+    usage_label: str
+    recent_ppg: float
+    history: list[UsageWeekOut]
+
+
+class WaiversOut(BaseModel):
+    season: str
+    weeks: list[int]
+    players: list[WaiverPlayerOut]

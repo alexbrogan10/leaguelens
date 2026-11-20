@@ -59,3 +59,18 @@ def test_trade_analysis(loaded, client):
 )
 def test_bad_trades_are_400(loaded, client, payload):
     assert client.post("/api/leagues/L1/trade/analyze", json=payload).status_code == 400
+
+
+def test_waiver_radar_excludes_rostered_players(loaded, client):
+    body = client.get("/api/leagues/L1/waivers").json()
+    ids = {p["player_id"] for p in body["players"]}
+    assert not ids & {"101", "102", "103"}
+    assert body["weeks"] == [1]
+
+
+def test_waiver_radar_validates_position(loaded, client):
+    assert client.get("/api/leagues/L1/waivers?position=K").status_code == 422
+
+
+def test_waiver_radar_needs_stats(client):
+    assert client.get("/api/leagues/L1/waivers").status_code == 503
