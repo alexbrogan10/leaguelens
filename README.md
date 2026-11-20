@@ -102,7 +102,6 @@ Interactive docs are at `http://localhost:8000/docs` when the API is running.
 ### With Docker
 
 ```bash
-cp .env.example .env
 docker compose up --build
 # open http://localhost:8080
 ```
