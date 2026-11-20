@@ -19,6 +19,16 @@ log = logging.getLogger(__name__)
 
 FANTASY_POSITIONS = {"QB", "RB", "WR", "TE", "K", "DEF"}
 
+# nflverse team codes that differ from Sleeper's.
+TEAM_ALIASES = {"LA": "LAR", "JAC": "JAX", "OAK": "LV", "SD": "LAC", "STL": "LAR"}
+
+
+def team_code(code: str | None) -> str | None:
+    if not code:
+        return None
+    return TEAM_ALIASES.get(code, code)
+
+
 # nflverse column -> PlayerWeekStat attribute
 STAT_COLUMNS = {
     "attempts": "pass_att",
@@ -154,7 +164,7 @@ def build_stat_rows(
                 season=season,
                 week=week,
                 name=r.get("player_display_name") or r.get("player_name") or gsis,
-                team=r.get("team") or None,
+                team=team_code(r.get("team")),
                 position=r.get("position") or None,
                 fum_lost=sum(_num(r.get(c)) for c in FUMBLE_COLUMNS),
                 team_carries=team_carries[(r.get("team") or "", week)],
@@ -194,8 +204,8 @@ def refresh_schedule(sf: sessionmaker[Session], source: StatsSource, seasons: li
                 game_id=g["game_id"],
                 season=int(g["season"]),
                 week=int(g["week"]),
-                home_team=g["home_team"],
-                away_team=g["away_team"],
+                home_team=team_code(g["home_team"]) or "",
+                away_team=team_code(g["away_team"]) or "",
             )
             for g in games
         )

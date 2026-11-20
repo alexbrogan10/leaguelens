@@ -61,3 +61,11 @@ def test_failed_job_is_recorded(container, source, tmp_path):
     with container.session_factory() as s:
         run = s.scalars(select(JobRun)).one()
     assert run.status == "error"
+
+
+def test_team_codes_match_sleeper():
+    from leaguelens.jobs.refresh import team_code
+
+    assert team_code("LA") == "LAR"
+    assert team_code("KC") == "KC"
+    assert team_code("") is None
