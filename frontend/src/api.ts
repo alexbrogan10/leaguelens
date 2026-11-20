@@ -178,6 +178,60 @@ export interface Waivers {
   players: WaiverPlayer[]
 }
 
+export interface TeamRef {
+  owner_id: string
+  display_name: string
+  team_name: string
+}
+
+export interface SeasonStanding extends TeamRef {
+  rank: number
+  wins: number
+  losses: number
+  ties: number
+  points_for: number
+}
+
+export interface Season {
+  season: string
+  league_id: string
+  name: string
+  status: string
+  champion: TeamRef | null
+  runner_up: TeamRef | null
+  standings: SeasonStanding[]
+}
+
+export interface Manager {
+  owner_id: string
+  display_name: string
+  avatar_url: string | null
+  seasons: number
+  wins: number
+  losses: number
+  ties: number
+  points_for: number
+  championships: number
+  runner_ups: number
+  best_finish: number | null
+}
+
+export interface HeadToHead {
+  owner_a: string
+  owner_b: string
+  wins: number
+  losses: number
+  ties: number
+  points_for: number
+  points_against: number
+}
+
+export interface History {
+  seasons: Season[]
+  managers: Manager[]
+  head_to_head: HeadToHead[]
+}
+
 export class ApiError extends Error {
   status: number
   constructor(status: number, message: string) {
@@ -215,6 +269,7 @@ export const api = {
   dashboard: (id: string) => request<Dashboard>(`/leagues/${enc(id)}/dashboard`),
   waivers: (id: string, position?: string) =>
     request<Waivers>(`/leagues/${enc(id)}/waivers?limit=40${position ? `&position=${enc(position)}` : ''}`),
+  history: (id: string) => request<History>(`/leagues/${enc(id)}/history`),
   rosters: (id: string) => request<Rosters>(`/leagues/${enc(id)}/rosters`),
   analyzeTrade: (id: string, body: TradeRequest) =>
     request<TradeResult>(`/leagues/${enc(id)}/trade/analyze`, { method: 'POST', body: JSON.stringify(body) }),

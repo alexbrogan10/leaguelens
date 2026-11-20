@@ -1,10 +1,15 @@
+import { lazy, Suspense } from 'react'
 import { Link, Route, Routes } from 'react-router-dom'
-import Dashboard from './pages/Dashboard'
+import { Loading } from './components/Status'
 import Home from './pages/Home'
-import Trade from './pages/Trade'
-import Waivers from './pages/Waivers'
 import LeagueLayout from './pages/LeagueLayout'
 import UserLeagues from './pages/UserLeagues'
+
+// League tabs are split into their own chunks; Recharts only loads with the dashboard.
+const Dashboard = lazy(() => import('./pages/Dashboard'))
+const Trade = lazy(() => import('./pages/Trade'))
+const Waivers = lazy(() => import('./pages/Waivers'))
+const History = lazy(() => import('./pages/History'))
 
 export default function App() {
   return (
@@ -21,16 +26,19 @@ export default function App() {
         </div>
       </header>
       <main className="container">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/u/:username" element={<UserLeagues />} />
-          <Route path="/league/:leagueId" element={<LeagueLayout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="trade" element={<Trade />} />
-            <Route path="waivers" element={<Waivers />} />
-          </Route>
-          <Route path="*" element={<p className="state">Page not found.</p>} />
-        </Routes>
+        <Suspense fallback={<Loading />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/u/:username" element={<UserLeagues />} />
+            <Route path="/league/:leagueId" element={<LeagueLayout />}>
+              <Route index element={<Dashboard />} />
+              <Route path="trade" element={<Trade />} />
+              <Route path="waivers" element={<Waivers />} />
+              <Route path="history" element={<History />} />
+            </Route>
+            <Route path="*" element={<p className="state">Page not found.</p>} />
+          </Routes>
+        </Suspense>
       </main>
       <footer className="site-footer">
         <div className="container">
