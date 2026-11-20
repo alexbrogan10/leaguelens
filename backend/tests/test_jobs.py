@@ -34,9 +34,9 @@ def test_refresh_stats_missing_season_is_noop(container, source):
 
 def test_refresh_schedule(container, source):
     sf = container.session_factory
-    assert refresh_schedule(sf, source, [2026]) == 2
+    assert refresh_schedule(sf, source, [2026]) == 5
     with sf() as s:
-        assert {g.week for g in s.scalars(select(NflGame))} == {1, 2}
+        assert {g.week for g in s.scalars(select(NflGame))} == {1, 2, 4, 5, 6}
 
 
 def test_refresh_players_links_ids(container, sleeper, source):

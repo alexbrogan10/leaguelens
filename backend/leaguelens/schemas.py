@@ -83,3 +83,79 @@ class DashboardOut(BaseModel):
     league: LeagueOut
     weeks: list[int]
     standings: list[StandingRowOut]
+
+
+class PlayerValueOut(BaseModel):
+    player_id: str
+    name: str
+    position: str
+    team: str | None
+    injury_status: str | None
+    games_played: int
+    recent_ppg: float
+    adjusted_ppg: float
+    usage_recent: float | None
+    usage_prior: float | None
+    trend_ratio: float
+    projected_ppg: float
+    replacement_ppg: float
+    vorp_ppg: float
+    games_remaining: int
+    availability: float
+    ros_points: float
+    ros_value: float
+
+
+class RosterOut(BaseModel):
+    roster_id: int
+    team_name: str
+    display_name: str
+    avatar_url: str | None
+    players: list[PlayerValueOut]
+
+
+class RostersOut(BaseModel):
+    season: str
+    weeks_remaining: int
+    stats_through_week: int | None
+    rosters: list[RosterOut]
+
+
+class TradeRequest(BaseModel):
+    team_a: int
+    team_b: int
+    a_gives: list[str]
+    b_gives: list[str]
+
+
+class LineupSlotOut(BaseModel):
+    slot: str
+    player_id: str | None
+    name: str | None
+    projected_ppg: float | None
+
+
+class TeamImpactOut(BaseModel):
+    roster_id: int
+    team_name: str
+    receives: list[PlayerValueOut]
+    gives: list[PlayerValueOut]
+    lineup_before: list[LineupSlotOut]
+    lineup_after: list[LineupSlotOut]
+    starters_before: float
+    starters_after: float
+    bench_before: float
+    bench_after: float
+    gain: float
+    raw_value_in: float
+    raw_value_out: float
+
+
+class TradeOut(BaseModel):
+    verdict: str
+    headline: str
+    margin: float
+    team_a: TeamImpactOut
+    team_b: TeamImpactOut
+    reasons: list[str]
+    weeks_remaining: int

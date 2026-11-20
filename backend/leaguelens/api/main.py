@@ -14,8 +14,17 @@ from leaguelens.clients.sleeper import SleeperError
 from leaguelens.config import get_settings
 from leaguelens.container import Container, build_container
 from leaguelens.models import JobRun
-from leaguelens.schemas import DashboardOut, LeagueOut, StateOut, UserLeaguesOut
+from leaguelens.schemas import (
+    DashboardOut,
+    LeagueOut,
+    RostersOut,
+    StateOut,
+    TradeOut,
+    TradeRequest,
+    UserLeaguesOut,
+)
 from leaguelens.services.league import LeagueService, NotFoundError
+from leaguelens.services.valuation import BadRequestError, StatsUnavailableError, ValuationService
 
 
 def get_container(request: Request) -> Container:
@@ -33,6 +42,13 @@ def get_league_service(c: ContainerDep) -> LeagueService:
 LeagueDep = Annotated[LeagueService, Depends(get_league_service)]
 
 
+def get_valuation_service(c: ContainerDep, leagues: LeagueDep) -> ValuationService:
+    return ValuationService(c.session_factory, leagues, c.values_memo)
+
+
+ValuationDep = Annotated[ValuationService, Depends(get_valuation_service)]
+
+
 def create_app(container: Container | None = None) -> FastAPI:
     settings = get_settings()
     app = FastAPI(title="LeagueLens API", version=__version__)
@@ -47,6 +63,14 @@ def create_app(container: Container | None = None) -> FastAPI:
     @app.exception_handler(NotFoundError)
     def _not_found(_: Request, exc: NotFoundError) -> JSONResponse:
         return JSONResponse(status_code=404, content={"detail": str(exc)})
+
+    @app.exception_handler(BadRequestError)
+    def _bad_request(_: Request, exc: BadRequestError) -> JSONResponse:
+        return JSONResponse(status_code=400, content={"detail": str(exc)})
+
+    @app.exception_handler(StatsUnavailableError)
+    def _no_stats(_: Request, exc: StatsUnavailableError) -> JSONResponse:
+        return JSONResponse(status_code=503, content={"detail": str(exc)})
 
     @app.exception_handler(SleeperError)
     def _sleeper(_: Request, exc: SleeperError) -> JSONResponse:
@@ -95,5 +119,13 @@ def create_app(container: Container | None = None) -> FastAPI:
     @app.get("/api/leagues/{league_id}/dashboard", response_model=DashboardOut)
     def dashboard(league_id: str, svc: LeagueDep) -> DashboardOut:
         return svc.dashboard(league_id)
+
+    @app.get("/api/leagues/{league_id}/rosters", response_model=RostersOut)
+    def rosters(league_id: str, svc: ValuationDep) -> RostersOut:
+        return svc.rosters(league_id)
+
+    @app.post("/api/leagues/{league_id}/trade/analyze", response_model=TradeOut)
+    def analyze_trade(league_id: str, req: TradeRequest, svc: ValuationDep) -> TradeOut:
+        return svc.analyze_trade(league_id, req)
 
     return app

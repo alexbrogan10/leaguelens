@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 from sqlalchemy import Engine
@@ -17,6 +17,7 @@ from leaguelens.clients.sleeper import (
 )
 from leaguelens.config import Settings
 from leaguelens.db import Base, make_engine, make_session_factory
+from leaguelens.services.valuation import ValuesMemo
 
 DEMO_DATA_DIR = Path(__file__).parent / "demo_data"
 
@@ -26,6 +27,7 @@ class Container:
     sleeper: SleeperClient
     session_factory: sessionmaker[Session]
     engine: Engine
+    values_memo: ValuesMemo = field(default_factory=ValuesMemo)
 
 
 def build_container(settings: Settings) -> Container:

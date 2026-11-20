@@ -2,14 +2,19 @@
  {
   "roster_id": 1,
   "owner_id": "u1",
-  "players": [],
+  "players": [
+   "101",
+   "102"
+  ],
   "starters": [],
   "settings": {}
  },
  {
   "roster_id": 2,
   "owner_id": "u2",
-  "players": [],
+  "players": [
+   "103"
+  ],
   "starters": [],
   "settings": {}
  },
