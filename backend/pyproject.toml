@@ -54,4 +54,4 @@ disallow_incomplete_defs = false
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"
-filterwarnings = ["ignore::DeprecationWarning:fastapi.testclient"]
+filterwarnings = ["ignore:Using `httpx` with `starlette.testclient`"]
