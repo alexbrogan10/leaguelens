@@ -32,8 +32,9 @@ class Container:
 
 def build_container(settings: Settings) -> Container:
     engine = make_engine(settings.database_url)
-    # Alembic owns the schema in Docker/prod; create_all keeps zero-setup local dev working.
-    Base.metadata.create_all(engine)
+    # Alembic owns the schema on Postgres; create_all keeps zero-setup SQLite dev working.
+    if settings.database_url.startswith("sqlite"):
+        Base.metadata.create_all(engine)
     sf = make_session_factory(engine)
     live = HttpSleeperClient(
         DbCache(sf), base_url=settings.sleeper_base_url, max_rps=settings.sleeper_max_rps
