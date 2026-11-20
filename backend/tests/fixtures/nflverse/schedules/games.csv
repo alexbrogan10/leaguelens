@@ -1,0 +1,5 @@
+game_id,season,game_type,week,away_team,home_team
+2026_01_AAA_BBB,2026,REG,1,AAA,BBB
+2026_02_BBB_CCC,2026,REG,2,BBB,CCC
+2025_01_X_Y,2025,REG,1,X,Y
+2026_19_A_B,2026,POST,19,AAA,BBB

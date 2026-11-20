@@ -87,3 +87,15 @@ class JobRun(Base):
     status: Mapped[str] = mapped_column(String(16))
     rows: Mapped[int] = mapped_column(Integer, default=0)
     message: Mapped[str | None] = mapped_column(Text, nullable=True)
+
+
+class NflGame(Base):
+    """Regular-season schedule, used to find bye weeks and remaining games."""
+
+    __tablename__ = "nfl_games"
+
+    game_id: Mapped[str] = mapped_column(String(32), primary_key=True)
+    season: Mapped[int] = mapped_column(Integer, index=True)
+    week: Mapped[int] = mapped_column(Integer)
+    home_team: Mapped[str] = mapped_column(String(8))
+    away_team: Mapped[str] = mapped_column(String(8))
