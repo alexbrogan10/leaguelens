@@ -16,6 +16,7 @@ from leaguelens.container import Container, build_container
 from leaguelens.models import JobRun
 from leaguelens.schemas import (
     DashboardOut,
+    HistoryOut,
     LeagueOut,
     RostersOut,
     StateOut,
@@ -24,6 +25,7 @@ from leaguelens.schemas import (
     UserLeaguesOut,
     WaiversOut,
 )
+from leaguelens.services.history import HistoryService
 from leaguelens.services.league import LeagueService, NotFoundError
 from leaguelens.services.valuation import BadRequestError, StatsUnavailableError, ValuationService
 from leaguelens.services.waivers import WaiverService
@@ -139,5 +141,9 @@ def create_app(container: Container | None = None) -> FastAPI:
         limit: Annotated[int, Query(ge=1, le=200)] = 50,
     ) -> WaiversOut:
         return WaiverService(c.session_factory, svc).radar(league_id, position, limit)
+
+    @app.get("/api/leagues/{league_id}/history", response_model=HistoryOut)
+    def history(league_id: str, svc: LeagueDep) -> HistoryOut:
+        return HistoryService(svc).history(league_id)
 
     return app

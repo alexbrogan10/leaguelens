@@ -1,0 +1,32 @@
+[
+ {
+  "user_id": "u1",
+  "display_name": "Alice",
+  "avatar": null,
+  "metadata": {
+   "team_name": "Alpha"
+  }
+ },
+ {
+  "user_id": "u2",
+  "display_name": "Bobby-old",
+  "avatar": null,
+  "metadata": {}
+ },
+ {
+  "user_id": "u3",
+  "display_name": "Cara",
+  "avatar": null,
+  "metadata": {
+   "team_name": "Cobras"
+  }
+ },
+ {
+  "user_id": "u4",
+  "display_name": "Dan",
+  "avatar": null,
+  "metadata": {
+   "team_name": "Dynamo"
+  }
+ }
+]

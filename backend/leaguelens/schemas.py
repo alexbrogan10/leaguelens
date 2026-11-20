@@ -187,3 +187,60 @@ class WaiversOut(BaseModel):
     season: str
     weeks: list[int]
     players: list[WaiverPlayerOut]
+
+
+class TeamRefOut(BaseModel):
+    owner_id: str
+    display_name: str
+    team_name: str
+
+
+class SeasonStandingOut(BaseModel):
+    owner_id: str
+    display_name: str
+    team_name: str
+    rank: int
+    wins: int
+    losses: int
+    ties: int
+    points_for: float
+
+
+class SeasonOut(BaseModel):
+    season: str
+    league_id: str
+    name: str
+    status: str
+    champion: TeamRefOut | None
+    runner_up: TeamRefOut | None
+    standings: list[SeasonStandingOut]
+
+
+class ManagerOut(BaseModel):
+    owner_id: str
+    display_name: str
+    avatar_url: str | None
+    seasons: int
+    wins: int
+    losses: int
+    ties: int
+    points_for: float
+    championships: int
+    runner_ups: int
+    best_finish: int | None
+
+
+class HeadToHeadOut(BaseModel):
+    owner_a: str
+    owner_b: str
+    wins: int
+    losses: int
+    ties: int
+    points_for: float
+    points_against: float
+
+
+class HistoryOut(BaseModel):
+    seasons: list[SeasonOut]
+    managers: list[ManagerOut]
+    head_to_head: list[HeadToHeadOut]
