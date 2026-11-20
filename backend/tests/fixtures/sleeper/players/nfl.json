@@ -1,0 +1,51 @@
+{
+ "101": {
+  "player_id": "101",
+  "full_name": "Jay Runner",
+  "position": "RB",
+  "team": "AAA",
+  "espn_id": 111,
+  "fantasy_positions": [
+   "RB"
+  ],
+  "status": "Active",
+  "age": 25
+ },
+ "102": {
+  "player_id": "102",
+  "full_name": "Bo Back",
+  "position": "RB",
+  "team": "AAA",
+  "fantasy_positions": [
+   "RB"
+  ],
+  "injury_status": "Questionable"
+ },
+ "103": {
+  "player_id": "103",
+  "first_name": "Quinn",
+  "last_name": "Ball",
+  "position": "QB",
+  "team": "AAA",
+  "gsis_id": "00-3",
+  "fantasy_positions": [
+   "QB"
+  ]
+ },
+ "BUF": {
+  "player_id": "BUF",
+  "first_name": "Buffalo",
+  "last_name": "Bills",
+  "position": "DEF",
+  "team": "BUF",
+  "fantasy_positions": [
+   "DEF"
+  ]
+ },
+ "999": {
+  "player_id": "999",
+  "full_name": "Big Guard",
+  "position": "OL",
+  "team": "AAA"
+ }
+}

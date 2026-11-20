@@ -1,0 +1,35 @@
+[
+ {
+  "roster_id": 1,
+  "owner_id": "u1",
+  "players": [
+   "101",
+   "102"
+  ],
+  "starters": [],
+  "settings": {}
+ },
+ {
+  "roster_id": 2,
+  "owner_id": "u2",
+  "players": [
+   "103"
+  ],
+  "starters": [],
+  "settings": {}
+ },
+ {
+  "roster_id": 3,
+  "owner_id": "u3",
+  "players": [],
+  "starters": [],
+  "settings": {}
+ },
+ {
+  "roster_id": 4,
+  "owner_id": "u4",
+  "players": [],
+  "starters": [],
+  "settings": {}
+ }
+]

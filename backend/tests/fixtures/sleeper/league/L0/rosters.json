@@ -1,0 +1,26 @@
+[
+ {
+  "roster_id": 1,
+  "owner_id": "u2",
+  "players": [],
+  "settings": {}
+ },
+ {
+  "roster_id": 2,
+  "owner_id": "u1",
+  "players": [],
+  "settings": {}
+ },
+ {
+  "roster_id": 3,
+  "owner_id": "u4",
+  "players": [],
+  "settings": {}
+ },
+ {
+  "roster_id": 4,
+  "owner_id": "u3",
+  "players": [],
+  "settings": {}
+ }
+]
