@@ -195,6 +195,15 @@ loaded locally. It works like this:
 Any league or user ID starting with `demo` is served from these files instead of Sleeper.
 Valuations for the demo league still use live stats from the database.
 
+## Project status
+
+**Not yet tested against a live Sleeper league.** The parts of the code that read Sleeper
+league data (league, users, rosters, matchups and the winners bracket) were built from
+Sleeper's API documentation and tested only against hand-written fixtures and the generated
+demo league. The live NFL state, player list and user lookup endpoints have been called
+against the real API. Before public launch, run every endpoint once against a real league
+and fix any field differences.
+
 ## Roadmap
 
 Planned paid features (freemium):
