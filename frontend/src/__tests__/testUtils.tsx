@@ -5,7 +5,7 @@ import { vi } from 'vitest'
 
 /** Stub fetch so each path prefix returns a canned JSON body. */
 export function mockApi(routes: Record<string, unknown>) {
-  const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+  const fetchMock = vi.fn(async (input: RequestInfo | URL, _init?: RequestInit) => {
     const url = String(input)
     const key = Object.keys(routes).find((k) => url.includes(k))
     if (!key) return new Response(JSON.stringify({ detail: 'not found' }), { status: 404 })

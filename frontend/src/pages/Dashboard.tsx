@@ -158,7 +158,7 @@ function Stat({ label, team, detail }: { label: string; team: StandingRow; detai
 function TeamCell({ row }: { row: StandingRow }) {
   return (
     <div className="team-cell">
-      <Avatar src={row.avatar_url} />
+      <Avatar src={row.avatar_url} name={row.team_name} />
       <div>
         <div className="name">{row.team_name}</div>
         {row.display_name !== row.team_name && <div className="owner">{row.display_name}</div>}
@@ -177,7 +177,7 @@ function LuckChart({ rows }: { rows: StandingRow[] }) {
         <YAxis
           type="category"
           dataKey="name"
-          width={120}
+          width={140}
           stroke="var(--ink-2)"
           fontSize={12}
           tickLine={false}

@@ -131,3 +131,32 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
   .card { padding: 14px; }
   .hide-sm { display: none; }
 }
+
+.avatar.initials { display: inline-flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; color: var(--ink-2); }
+.avatar.lg.initials { font-size: 1rem; }
+
+/* Trade analyzer */
+.trade-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+.trade-grid > .card + .card { margin-top: 0; }
+.picker { max-height: 420px; overflow-y: auto; margin: 8px -8px 0; }
+.picker label { display: grid; grid-template-columns: 20px 1fr auto; gap: 10px; align-items: center; padding: 8px; border-radius: 8px; cursor: pointer; }
+.picker label:hover { background: var(--surface-2); }
+.picker label.selected { background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.picker .meta { color: var(--muted); font-size: 0.8rem; }
+.picker .val { text-align: right; font-size: 0.85rem; font-variant-numeric: tabular-nums; }
+.posbadge { display: inline-block; min-width: 30px; text-align: center; font-size: 0.7rem; font-weight: 700; border-radius: 4px; padding: 1px 4px; margin-right: 6px; background: var(--surface-2); color: var(--ink-2); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; min-height: 30px; }
+.chip { display: inline-flex; gap: 6px; align-items: center; background: var(--surface-2); border-radius: 999px; padding: 3px 4px 3px 10px; font-size: 0.85rem; }
+.chip button { all: unset; cursor: pointer; width: 20px; height: 20px; border-radius: 50%; text-align: center; line-height: 20px; color: var(--muted); }
+.chip button:hover { background: var(--axis); color: var(--ink); }
+.trade-actions { display: flex; justify-content: center; gap: 12px; margin: 16px 0; flex-wrap: wrap; align-items: center; }
+.verdict { border-radius: var(--radius); padding: 18px 20px; background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); }
+.verdict.fair { border-left-color: var(--muted); }
+.verdict h2 { font-size: 1.25rem; }
+.gain { font-size: 1.75rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.lineup td.changed { font-weight: 600; }
+.lineup td.changed::before { content: '→ '; color: var(--accent); }
+.reasons { margin: 0; padding-left: 20px; }
+.reasons li + li { margin-top: 6px; }
+details summary { cursor: pointer; font-weight: 600; }
+.search-input { width: 100%; margin-top: 8px; }

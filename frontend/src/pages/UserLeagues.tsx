@@ -20,7 +20,7 @@ export default function UserLeagues() {
     <div className="card">
       <div className="card-head">
         <div className="league-head">
-          <Avatar src={data.user.avatar_url} size="lg" />
+          <Avatar src={data.user.avatar_url} name={data.user.display_name} size="lg" />
           <div>
             <h1>{data.user.display_name}</h1>
             <span className="sub">Pick a league</span>
@@ -42,7 +42,7 @@ export default function UserLeagues() {
           {data.leagues.map((lg) => (
             <li key={lg.league_id}>
               <Link to={`/league/${lg.league_id}`}>
-                <Avatar src={lg.avatar_url} />
+                <Avatar src={lg.avatar_url} name={lg.name} />
                 <span style={{ flex: 1 }}>
                   <strong>{lg.name}</strong>
                   <br />
