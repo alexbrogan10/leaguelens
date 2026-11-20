@@ -24,11 +24,8 @@ export default function Home() {
         <h1>See your Sleeper league clearly</h1>
         <p>Enter your Sleeper username to get power rankings, trade analysis and waiver tips Sleeper doesn't show you.</p>
         <form className="search" onSubmit={submit}>
-          <label htmlFor="username" className="sr-only" hidden>
-            Sleeper username
-          </label>
           <input
-            id="username"
+            aria-label="Sleeper username"
             placeholder="Sleeper username"
             value={username}
             autoComplete="off"
