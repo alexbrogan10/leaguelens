@@ -2,6 +2,7 @@ import { Link, Route, Routes } from 'react-router-dom'
 import Dashboard from './pages/Dashboard'
 import Home from './pages/Home'
 import Trade from './pages/Trade'
+import Waivers from './pages/Waivers'
 import LeagueLayout from './pages/LeagueLayout'
 import UserLeagues from './pages/UserLeagues'
 
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="/league/:leagueId" element={<LeagueLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="trade" element={<Trade />} />
+            <Route path="waivers" element={<Waivers />} />
           </Route>
           <Route path="*" element={<p className="state">Page not found.</p>} />
         </Routes>

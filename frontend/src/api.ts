@@ -150,6 +150,34 @@ export interface TradeResult {
   weeks_remaining: number
 }
 
+export interface UsageWeek {
+  week: number
+  usage: number
+  snap_pct: number | null
+  points: number
+}
+
+export interface WaiverPlayer {
+  player_id: string
+  name: string
+  position: string
+  team: string | null
+  injury_status: string | null
+  age: number | null
+  score: number
+  usage_slope: number
+  latest_usage: number
+  usage_label: string
+  recent_ppg: number
+  history: UsageWeek[]
+}
+
+export interface Waivers {
+  season: string
+  weeks: number[]
+  players: WaiverPlayer[]
+}
+
 export class ApiError extends Error {
   status: number
   constructor(status: number, message: string) {
@@ -185,6 +213,8 @@ export const api = {
     request<UserLeagues>(`/users/${enc(username)}/leagues${season ? `?season=${enc(season)}` : ''}`),
   league: (id: string) => request<League>(`/leagues/${enc(id)}`),
   dashboard: (id: string) => request<Dashboard>(`/leagues/${enc(id)}/dashboard`),
+  waivers: (id: string, position?: string) =>
+    request<Waivers>(`/leagues/${enc(id)}/waivers?limit=40${position ? `&position=${enc(position)}` : ''}`),
   rosters: (id: string) => request<Rosters>(`/leagues/${enc(id)}/rosters`),
   analyzeTrade: (id: string, body: TradeRequest) =>
     request<TradeResult>(`/leagues/${enc(id)}/trade/analyze`, { method: 'POST', body: JSON.stringify(body) }),
